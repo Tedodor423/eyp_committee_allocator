@@ -11,8 +11,10 @@ import pandas as pd
 import re
 from unicodedata import normalize
 from progress.bar import Bar
+from tkinter import filedialog
 
-prefilled = True
+
+prefilled = False
 
 def get_number(query=""):
     while not (output := input(query)).isnumeric(): print("toto není přirozené číslo")
@@ -21,7 +23,11 @@ def get_number(query=""):
 # load info
 if prefilled: input_filename = "committee allocatorV2/KOL23 DELEGATES__BIBLE_workshop_allocation.xlsx"
 else:
-    input_filename = "committee allocatorV2/KOL23 DELEGATES__BIBLE_committee_allocation.xlsx"  #input("Jméno vstupního Excel souboru VČETNĚ PŘÍPONY (může být i celá cesta): ")
+    input_filename = input("Jméno vstupního Excel souboru (může být i celá cesta, nebo nechat prázdné pro výběr přes dialog): ")
+    # filedialog.askopenfilename(
+    #     title="Select a file",
+    #     filetypes=[("All Files", "*.*")]
+    # )
 
 
 if prefilled: 

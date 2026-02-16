@@ -4,7 +4,7 @@ alokace komisí
 ## Instalace
 nainstalujte nejnovější [Python](https://www.python.org/downloads/)
 
-st
+stáhněte si kód zde: [committee_allocator-orderscaleV2.py](https://github.com/Tedodor423/eyp_committee_allocator/releases/download/release/committee_allocator-orderscaleV2.py)
 
 ## Použití
 

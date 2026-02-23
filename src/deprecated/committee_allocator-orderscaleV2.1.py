@@ -1,9 +1,6 @@
 """
 
-Changelog:
-- order scale instead of selects
-
-David Theodoor Nimrichtr 2023, EYP CZ
+David Theodoor Nimrichtr, Adam Thomas Mezera 2026, EYP CZ
 """
 
 from math import ceil, floor
@@ -23,7 +20,7 @@ def get_number(query=""):
 # load info
 if prefilled: input_filename = "committee allocatorV2/KOL23 DELEGATES__BIBLE_workshop_allocation.xlsx"
 else:
-    input_filename = input("Jméno vstupního Excel souboru (může být i celá cesta, nebo nechat prázdné pro výběr přes dialog): ")
+    input_filename = input("Jméno vstupního Excel souboru VČETNĚ PŘÍPONY .xlsx (může být i celá cesta, nebo nechat prázdné pro výběr přes dialog): ")
     # filedialog.askopenfilename(
     #     title="Select a file",
     #     filetypes=[("All Files", "*.*")]
@@ -53,8 +50,9 @@ try:
     gender_column = pd.read_excel(input_filename, usecols=gender_column_letter)
     nationality_column = pd.read_excel(input_filename, usecols=nationality_column_letter)
 
-except:
+except Exception as e:
     print("Chyba při načítáni souboru - je správně jeho název a rozsah sloupců?")
+    print(e)
     input()
     exit()
 
@@ -76,7 +74,10 @@ for committee_name in committee_pref_column.values.tolist()[1][0].split(";"):
 # parse committee preferences
 committee_preferences = []
 for committee_preference in committee_pref_column.values.tolist():
-    committee_preferences.append(committee_preference[0].split(";")[:8])
+    committee_preferences.append([])
+    for committee in committee_preference[0].split(";"):
+        if committee != "":
+            committee_preferences[-1].append(committee)
 
 commnum = len(committees)
 
@@ -132,7 +133,7 @@ statistic = [0]*len(committees)
 
 # DIVERSIFY COMMITTEES
 
-factors = ((genders, 0.1), (schools, 0.2), (nationalities, 0.2))  # weight
+factors = ((genders, 0.1), (schools, 0.2), (nationalities, 0.02))  # weight
 
 """
 
